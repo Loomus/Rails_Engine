@@ -23,4 +23,16 @@ describe "Transaction API" do
     expect(response).to be_successful
     expect(transaction["id"]).to eq(id)
   end
+
+  it "can find one transaction by credit card number" do
+    transaction_2 = create(:transaction, credit_card_number: 9876)
+
+    get "/api/v1/transactions/find?credit_card_number=9876"
+
+    expect(response).to be_successful
+
+    transaction = JSON.parse(response.body)
+
+    expect(transaction['data']['id']).to eq(transaction_2.id.to_s)
+  end
 end

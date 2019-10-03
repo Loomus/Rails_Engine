@@ -23,4 +23,16 @@ describe "Item API" do
     expect(response).to be_successful
     expect(item["id"]).to eq(id)
   end
+
+  it "can find one item by name" do
+    name = create(:item).name
+
+    get "/api/v1/items/find?name=#{name}"
+
+    expect(response).to be_successful
+
+    item = JSON.parse(response.body)
+
+    expect(item['data']['attributes']['name']).to eq(name)
+  end
 end

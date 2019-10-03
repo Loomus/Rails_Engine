@@ -23,4 +23,16 @@ describe "Merchant API" do
     expect(response).to be_successful
     expect(merchant["id"]).to eq(id)
   end
+
+  it "can find one merchant by name" do
+    name = create(:merchant).name
+
+    get "/api/v1/merchants/find?name=#{name}"
+
+    expect(response).to be_successful
+
+    merchant = JSON.parse(response.body)
+
+    expect(merchant['data']['attributes']['name']).to eq(name)
+  end
 end
