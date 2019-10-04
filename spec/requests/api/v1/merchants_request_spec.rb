@@ -50,4 +50,18 @@ describe "Merchant API" do
     # binding.pry
     expect(merchants['data'].count).to eq(2)
   end
+
+  it 'can find a random merchant' do
+    merch_list = create_list(:merchant, 3)
+    ids = merch_list.map(&:id)
+
+    get "/api/v1/merchants/random.json"
+
+    expect(response).to be_successful
+
+    merchant = JSON.parse(response.body)
+
+    id = merchant['data']['id']
+    expect(Merchant.find(id)).to be_instance_of(Merchant)
+  end
 end
