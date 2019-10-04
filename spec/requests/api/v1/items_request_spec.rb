@@ -35,4 +35,16 @@ describe "Item API" do
 
     expect(item['data']['attributes']['name']).to eq(name)
   end
+
+  it "can find all items by updated_at" do
+    updated = Time.now
+
+    item_1 = create(:item)
+    item_2 = create(:item, updated_at: updated)
+    item_3 = create(:item, updated_at: updated)
+
+    get "/api/v1/items/find_all?updated_at=#{updated}"
+
+    expect(response).to be_successful
+  end
 end
