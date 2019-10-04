@@ -32,7 +32,20 @@ describe "Customer API" do
     expect(response).to be_successful
 
     customer = JSON.parse(response.body)
-    
+
     expect(customer['data']['attributes']['first_name']).to eq(first_name)
+  end
+
+  it "can find all customers by first name" do
+    customer_1 = create(:customer, first_name: 'andrew')
+    customer_2 = create(:customer, first_name: 'andrew')
+
+    get "/api/v1/customers/find_all?first_name=andrew"
+
+    expect(response).to be_successful
+
+    customers = JSON.parse(response.body)
+
+    expect(customers['data'].count).to eq(2)
   end
 end

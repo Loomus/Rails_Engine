@@ -1,7 +1,11 @@
 class Api::V1::Customers::SearchController < ApplicationController
 
   def show
-   render json: CustomerSerializer.new(Customer.find_by(search_params))
+    render json: CustomerSerializer.new(Customer.find_by(search_params))
+  end
+
+  def index
+    render json: CustomerSerializer.new(Customer.find_all_by(search_params)) 
   end
 
   private
