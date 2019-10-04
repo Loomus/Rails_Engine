@@ -1,7 +1,11 @@
 class Api::V1::Transactions::SearchController < ApplicationController
 
   def show
-   render json: TransactionSerializer.new(Transaction.find_by(search_params))
+    render json: TransactionSerializer.new(Transaction.find_by(search_params))
+  end
+
+  def index
+    render json: TransactionSerializer.new(Transaction.find_all_by(search_params))
   end
 
   private

@@ -35,4 +35,19 @@ describe "Merchant API" do
 
     expect(merchant['data']['attributes']['name']).to eq(name)
   end
+
+  it "can find all merchants by name" do
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    merchant_3 = create(:merchant, name: 'Meriadoc')
+    merchant_4 = create(:merchant, name: 'Meriadoc')
+
+    get '/api/v1/merchants/find_all?name=Meriadoc'
+
+    expect(response).to be_successful
+
+    merchants = JSON.parse(response.body)
+    # binding.pry
+    expect(merchants['data'].count).to eq(2)
+  end
 end
