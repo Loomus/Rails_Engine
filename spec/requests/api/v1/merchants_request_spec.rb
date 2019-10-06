@@ -134,4 +134,36 @@ describe "Merchant API" do
 
     expect(invoices['data'].count).to eq(2)
   end
+
+  it "returns top merchants by revenue" do
+    get "/api/v1/merchants/most_revenue?quantity=5"
+
+    expect(response).to be_successful
+
+    top_merchants = JSON.parse(response.body)
+
+    expect(top_merchants['data'].length).to eq(5)
+    expect(top_merchants['data'].first['attributes']['id']).to eq(@merchant_6.id)
+    expect(top_merchants['data'].last['attributes']['id']).to eq(@merchant_2.id)
+  end
+
+  it "returns total revenue for one merchant by date" do
+    get "/api/v1/merchants/#{@merchant_6.id}/revenue?date=2012-03-16"
+
+    expect(response).to be_successful
+
+    rev = JSON.parse(response.body)
+
+    expect(rev['data']['attributes']['revenue'].to_f.to_s).to eq('36.0')
+  end
+
+  it "returns the customer who has most orders for one merchant" do
+   get "/api/v1/merchants/#{@merchant_6.id}/favorite_customer"
+
+   expect(response).to be_successful
+
+   customer = JSON.parse(response.body)
+
+   expect(customer['data']['id']).to eq(@customer.id.to_s)
+ end
 end
