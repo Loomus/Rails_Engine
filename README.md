@@ -1,24 +1,28 @@
-# README
+Rails API Practice
+Purpose
+This api will allow requests for various imported e-commerce data regarding:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Customers
+Merchants
+Invoices
+Items
+Transactions
+Their relationships
 
-Things you may want to cover:
+Versions
+Ruby: 2.4.1
+Rails: 5.1.7
 
-* Ruby version
+Configuration
+Clone Repo
+Run:
+bundle install
 
-* System dependencies
+Database Setup
+Run:
+rails db:{create,migrate}
+rails import:data
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Testing
+Run:
+ bundle exec rspec

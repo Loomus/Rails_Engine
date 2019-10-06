@@ -53,5 +53,30 @@ describe Merchant do
 
       expect(best_merchant).to eq(@merchant_1)
     end
-  end 
+    
+    it ".top_by_revenue" do
+      top_5 = Merchant.top_by_revenue(5)
+
+      expect(top_5.length).to eq(5)
+      expect(top_5.first).to eq(@merchant_6)
+      expect(top_5.last).to eq(@merchant_2)
+    end
+  end
+
+  describe 'instance methods' do
+
+    it ".total_revenue" do
+      total_revenue = @merchant_6.total_revenue
+
+      expect(total_revenue.revenue).to eq(36.00)
+    end
+
+    it "total_revenue_by_date" do
+      date = "2012-03-16"
+
+      total_revenue_by_date = @merchant_6.total_revenue_by_date(date)
+
+      expect(total_revenue_by_date.revenue).to eq(36.00)
+    end
+  end
 end
